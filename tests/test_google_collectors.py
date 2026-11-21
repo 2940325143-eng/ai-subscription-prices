@@ -5,7 +5,7 @@ from collector import chatgpt_web, google_apple, google_apps, google_web
 
 
 class GoogleAndWebCollectorTests(unittest.TestCase):
-    def test_chatgpt_web_tax_exclusive_only_never_estimates_inclusive(self):
+    def test_chatgpt_web_prefers_exclusive_and_accepts_inclusive_fallback(self):
         payload = {
             "country_code": "TR",
             "currency_config": {
@@ -13,7 +13,7 @@ class GoogleAndWebCollectorTests(unittest.TestCase):
                 "symbol": "$",
                 "minor_unit_exponent": 2,
                 "go": {"month": {"amount": 6, "tax": "inclusive"}},
-                "plus": {"month": {"amount": 20, "tax": "exclusive"}},
+                "plus": {"month": {"amount": 22, "tax": "inclusive", "psp_override": {"amount": 20, "tax": "exclusive"}}},
                 "business": {"month": {"amount": 25, "tax": "exclusive"}},
                 "prolite": {"month": {"amount": 100, "tax": "exclusive"}},
                 "business_prolite": {"month": {"amount": 125, "tax": "exclusive"}},
@@ -24,8 +24,15 @@ class GoogleAndWebCollectorTests(unittest.TestCase):
         ext = chatgpt_web.extract_config_prices(
             payload, country="TR", source_url=chatgpt_web.CONFIG_ENDPOINT.format(country="TR"), observed_at="2026-11-21T00:00:00+00:00"
         )
-        self.assertEqual(ext["cells"]["go"]["status"], "pending_basis")
-        self.assertIsNone(ext["cells"]["go"]["amount"])
+        # Inclusive-only go is accepted with taxInclusive=True
+        self.assertEqual(ext["cells"]["go"]["status"], "ok")
+        self.assertEqual(ext["cells"]["go"]["amount"], 6.0)
+        self.assertEqual(ext["cells"]["go"]["tax"], "inclusive")
+        self.assertTrue(ext["cells"]["go"]["taxInclusive"])
+        # psp_override exclusive wins cleanly over inclusive month
+        self.assertEqual(ext["cells"]["plus"]["amount"], 20.0)
+        self.assertEqual(ext["cells"]["plus"]["tax"], "exclusive")
+        self.assertFalse(ext["cells"]["plus"]["taxInclusive"])
         for plan in ("plus", "businessStandard", "pro100", "businessPremium", "pro200", "pro500"):
             self.assertEqual(ext["cells"][plan]["status"], "ok")
             self.assertEqual(ext["cells"][plan]["tax"], "exclusive")

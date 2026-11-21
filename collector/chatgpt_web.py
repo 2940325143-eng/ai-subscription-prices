@@ -68,7 +68,7 @@ def valid_monthly_subscription_cell(cell: Any) -> bool:
         and cell.get("priceBasis") == MONTHLY_PRICE_BASIS
         and _valid_source_path(cell.get("sourcePath"))
         and _positive_amount(cell.get("amount"))
-        and cell.get("tax") == "exclusive"
+        and cell.get("tax") in {"exclusive", "inclusive"}
         and not _conflicting_context(cell)
     )
 
@@ -95,6 +95,8 @@ def normalize_monthly_cell(cell: Any, *, plan: str, currency: str | None = None,
     if valid_monthly_subscription_cell(cell):
         copied = copy.deepcopy(cell)
         copied["plan"] = plan
+        is_inclusive = copied.get("tax") == "inclusive"
+        copied["taxInclusive"] = is_inclusive
         if currency and not copied.get("currency"):
             copied["currency"] = currency
         copied.setdefault("observedAt", observed_at)
@@ -102,7 +104,10 @@ def normalize_monthly_cell(cell: Any, *, plan: str, currency: str | None = None,
         copied.setdefault("identityVerified", True)
         copied.setdefault("periodVerified", True)
         copied.setdefault("regionVerified", True)
-        copied.setdefault("priceScope", "official_tax_exclusive_monthly")
+        copied.setdefault(
+            "priceScope",
+            "official_tax_inclusive_monthly" if is_inclusive else "official_tax_exclusive_monthly",
+        )
         return copied
 
     node = cell if isinstance(cell, dict) else {}
@@ -117,6 +122,7 @@ def normalize_monthly_cell(cell: Any, *, plan: str, currency: str | None = None,
         "amount": None,
         "currency": None,
         "tax": quote["tax"],
+        "taxInclusive": False,
         "period": "month",
         "priceBasis": MONTHLY_PRICE_BASIS,
         "sourcePath": path,
@@ -130,9 +136,7 @@ def normalize_monthly_cell(cell: Any, *, plan: str, currency: str | None = None,
         "periodVerified": False,
         "regionVerified": False,
         "priceScope": "official_tax_exclusive_monthly",
-        "reason": "官方含税价或月付节点不可核实（坚持仅采用不含税直出月价，不估算扣税）"
-        if quote["tax"] == "inclusive"
-        else "官方月付节点未提供可直接核实的订阅标价",
+        "reason": "官方月付节点未提供可直接核实的订阅标价",
     }
     raw_override = node.get("psp_override")
     context_blocked = _conflicting_context(node) or (isinstance(raw_override, dict) and _conflicting_context(raw_override))
@@ -151,23 +155,55 @@ def normalize_monthly_cell(cell: Any, *, plan: str, currency: str | None = None,
         result.update(
             amount=float(override["amount"]),
             currency=currency,
-            tax=override["tax"],
+            tax="exclusive",
+            taxInclusive=False,
             sourcePath=path + ".psp_override",
             status="ok",
             identityVerified=bool(currency),
             periodVerified=True,
             regionVerified=bool(currency),
+            priceScope="official_tax_exclusive_monthly",
             reason="ChatGPT 官方不含税月付标价（psp_override 核验）",
         )
     elif quote["tax"] == "exclusive" and _positive_amount(quote["amount"]):
         result.update(
             amount=float(quote["amount"]),
             currency=currency,
+            tax="exclusive",
+            taxInclusive=False,
             status="ok",
             identityVerified=bool(currency),
             periodVerified=True,
             regionVerified=bool(currency),
+            priceScope="official_tax_exclusive_monthly",
             reason="ChatGPT 官方不含税月付标价",
+        )
+    elif isinstance(override, dict) and override.get("tax") == "inclusive" and _positive_amount(override.get("amount")):
+        result.update(
+            amount=float(override["amount"]),
+            currency=currency,
+            tax="inclusive",
+            taxInclusive=True,
+            sourcePath=path + ".psp_override",
+            status="ok",
+            identityVerified=bool(currency),
+            periodVerified=True,
+            regionVerified=bool(currency),
+            priceScope="official_tax_inclusive_monthly",
+            reason="OpenAI 官方该地区仅提供含税月付直出标价（tax: inclusive，无不含税节点）；已入表并参与排名",
+        )
+    elif quote["tax"] == "inclusive" and _positive_amount(quote["amount"]):
+        result.update(
+            amount=float(quote["amount"]),
+            currency=currency,
+            tax="inclusive",
+            taxInclusive=True,
+            status="ok",
+            identityVerified=bool(currency),
+            periodVerified=True,
+            regionVerified=bool(currency),
+            priceScope="official_tax_inclusive_monthly",
+            reason="OpenAI 官方该地区仅提供含税月付直出标价（tax: inclusive，无不含税节点）；已入表并参与排名",
         )
     return result
 

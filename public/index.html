@@ -24,7 +24,7 @@
         <div>
           <p class="eyebrow">OFFICIAL WEB + APP STORE · MONTHLY ONLY</p>
           <h1>AI 订阅 <span>全球月价</span></h1>
-          <p id="heroDescription" class="hero-description">官网住宅代理按实际 IP 拉取不含税月付基准，App Store 自动隔离年付与老用户旧续订价。</p>
+          <p id="heroDescription" class="hero-description">官网住宅代理按实际 IP 优先取不含税直出月付（官方仅提供含税价时标注「含税」并纳入排名），App Store 自动隔离年付与老用户旧续订价。</p>
         </div>
         <div class="header-status">
           <span id="serviceState" class="status-pill" data-state="loading">正在加载数据</span>
@@ -46,7 +46,7 @@
         <div><strong id="validCount">—</strong><span>含有效月价地区</span></div>
         <div><strong id="suspectCount">—</strong><span>疑似旧续订价</span></div>
         <div><strong id="historyRetainedCount">—</strong><span>历史新价留存</span></div>
-        <p id="channelCoverage">官网不含税直出 · App Store 新价优先</p>
+        <p id="channelCoverage">官网直出月付 · App Store 新价优先</p>
       </div>
     </header>
 
@@ -83,7 +83,16 @@
         </div>
       </div>
 
-      <div id="priceTableScroll" class="table-scroll" tabindex="0" aria-label="全球价格表，可横向滚动">
+      <div id="tableScrollAssist" class="table-scroll-assist" hidden>
+        <div class="assist-nav">
+          <button id="scrollLeftBtn" type="button" class="assist-btn" aria-label="向左移动表格">← 左移</button>
+          <input id="tableScrollSlider" class="assist-slider" type="range" min="0" max="100" value="0" aria-label="横向滚动位置">
+          <button id="scrollRightBtn" type="button" class="assist-btn" aria-label="向右移动表格">右移 →</button>
+        </div>
+        <div id="tierJumpPills" class="assist-jumps" aria-label="快速定位档位"></div>
+      </div>
+
+      <div id="priceTableScroll" class="table-scroll" tabindex="0" aria-label="全球价格表，可横向或纵向滚动（首两列固定）">
         <table id="priceTable">
           <caption id="tableCaption" class="visually-hidden">各地区每月订阅价格；点击价格表头按欧元升序排列</caption>
           <thead id="tableHead"></thead>

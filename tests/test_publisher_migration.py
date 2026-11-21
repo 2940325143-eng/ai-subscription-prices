@@ -16,9 +16,16 @@ class PublisherAndMigrationTests(unittest.TestCase):
         cg = pub["products"]["chatgpt"]
         self.assertEqual(len(cg["countries"]), 210)
         tr_cg = next(r for r in cg["countries"] if r["code"] == "TR")
-        # TR ChatGPT go is VAT-inclusive in 18767 -> must stay pending_basis
-        self.assertEqual(tr_cg["web"]["cells"]["go"]["status"], "pending_basis")
-        self.assertIsNone(tr_cg["web"]["cells"]["go"]["amount"])
+        bs_cg = next(r for r in cg["countries"] if r["code"] == "BS")
+        # TR & BS ChatGPT go are tax-inclusive -> included as status=ok with tax='inclusive'
+        self.assertEqual(tr_cg["web"]["cells"]["go"]["status"], "ok")
+        self.assertEqual(tr_cg["web"]["cells"]["go"]["amount"], 6.0)
+        self.assertEqual(tr_cg["web"]["cells"]["go"]["tax"], "inclusive")
+        self.assertTrue(tr_cg["web"]["cells"]["go"]["taxInclusive"])
+        self.assertEqual(bs_cg["web"]["cells"]["go"]["status"], "ok")
+        self.assertEqual(bs_cg["web"]["cells"]["go"]["amount"], 7.25)
+        self.assertEqual(bs_cg["web"]["cells"]["go"]["tax"], "inclusive")
+        self.assertEqual(bs_cg["web"]["cells"]["plus"]["tax"], "exclusive")
         self.assertEqual(tr_cg["apple"]["cells"]["plus"]["amount"], 999.99)
 
         gu = pub["products"]["google_ultra"]

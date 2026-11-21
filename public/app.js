@@ -4,8 +4,8 @@ export const PRODUCT_CONFIG = Object.freeze({
   chatgpt: Object.freeze({
     key: 'chatgpt',
     title: 'ChatGPT',
-    description: '个人 5 档（GO / Plus / Pro 100 / Pro 200 / Pro 500）与团队 2 档（Business Standard / Premium）。官网严格采用住宅代理直出不含税月付标价；App Store 自动隔离年付并按新开用户取最高月价。',
-    note: 'ChatGPT 官网仅采用了 tax="exclusive" 不含税直出月付字段；Business 两档仅提供官网口径。同币种下若 App Store 低于官网 65% 会自动标疑移出看板。',
+    description: '个人 5 档（GO / Plus / Pro 100 / Pro 200 / Pro 500）与团队 2 档（Business Standard / Premium）。官网优先采用不含税直出月付，官方仅提供含税价时标注「含税」直接入表并参与排名；App Store 自动隔离年付并按新开用户取最高月价。',
+    note: 'ChatGPT 官网优先取 tax="exclusive" 不含税直出月付字段；若某国某档官方仅返回 tax="inclusive"，则贴「含税」标签入表参与排名（绝不推算扣税）。同币种 App Store 低于官网 65% 将标疑移出看板。',
     plans: Object.freeze([
       { key: 'go', label: 'ChatGPT GO', badge: 'GO', badgeClass: '', channels: ['web', 'apple'], group: 'personal' },
       { key: 'plus', label: 'ChatGPT Plus', badge: 'Plus', badgeClass: '', channels: ['web', 'apple'], group: 'personal' },
@@ -385,17 +385,21 @@ function renderMinimumGrid(prod, cols) {
       return `<button type="button" class="minimum-card ${toneClass} ${selected}" data-sort-col="${column.key}"><div class="card-heading"><span>${escapeHTML(column.planLabel)}</span><span class="source-label">${escapeHTML(column.sourceLabel)}</span></div><div class="empty-minimum">暂无有效合格低价</div></button>`;
     }
     const { country, cell, euro } = winner;
-    const tag = cell.manualOverride
-      ? `<span class="card-tag teal">实测校准</span>`
-      : cell.historyRetained
-      ? `<span class="card-tag">历史新价 · ${escapeHTML(formatDateOnly(cell.historyLastSeen || cell.observedAt))}</span>`
-      : '';
+    const tags = [];
+    if (cell.manualOverride) {
+      tags.push(`<span class="card-tag teal">实测校准</span>`);
+    } else if (cell.historyRetained) {
+      tags.push(`<span class="card-tag">历史新价 · ${escapeHTML(formatDateOnly(cell.historyLastSeen || cell.observedAt))}</span>`);
+    }
+    if (column.source === 'web' && (cell.tax === 'inclusive' || cell.taxInclusive)) {
+      tags.push(`<span class="card-tag tax">含税</span>`);
+    }
     return `<button type="button" class="minimum-card ${toneClass} ${selected}" data-sort-col="${column.key}">
       <div class="card-heading"><span>${escapeHTML(column.planLabel)}</span><span class="source-label">${escapeHTML(column.sourceLabel)}</span></div>
       <div class="minimum-country">${escapeHTML(country.flag || '')} ${escapeHTML(country.name)} (${escapeHTML(country.code)})</div>
       <div class="minimum-local">${escapeHTML(formatMoney(cell.amount, cell.currency))}</div>
       <div class="minimum-eur">${escapeHTML(formatEuro(euro))}</div>
-      ${tag}
+      ${tags.join('')}
     </button>`;
   }).join('');
 
@@ -429,12 +433,11 @@ function buildTableHeader(cols) {
     <tr class="plan-head">
       <th scope="col" rowspan="2" class="rank-head">#</th>
       <th scope="col" rowspan="2" class="country-head">国家 / 地区</th>
-      <th scope="col" rowspan="2" class="proxy-head">住宅代理</th>
-      ${groups.map((g) => `<th scope="colgroup" colspan="${g.cols.length}"><span class="tier-badge ${escapeHTML(g.plan.badgeClass)}">${escapeHTML(g.plan.badge)}</span>${escapeHTML(g.plan.label)}</th>`).join('')}
+      ${groups.map((g) => `<th scope="colgroup" data-plan-group="${escapeHTML(g.plan.key)}" colspan="${g.cols.length}"><span class="tier-badge ${escapeHTML(g.plan.badgeClass)}">${escapeHTML(g.plan.badge)}</span>${escapeHTML(g.plan.label)}</th>`).join('')}
     </tr>
   `;
   const row2 = `
-    <tr>
+    <tr class="sub-head">
       ${cols.map((c, idx) => {
         const isGroupStart = idx === 0 || cols[idx - 1].plan !== c.plan;
         const sorted = state.sort === c.key ? 'sorted' : '';
@@ -452,6 +455,25 @@ function buildTableHeader(cols) {
       renderAll();
     });
   });
+
+  const jumpsHost = document.getElementById('tierJumpPills');
+  if (jumpsHost) {
+    jumpsHost.innerHTML = groups
+      .map((g) => `<button type="button" class="jump-pill" data-jump-plan="${escapeHTML(g.plan.key)}">${escapeHTML(g.plan.badge || g.plan.label)}</button>`)
+      .join('');
+    jumpsHost.querySelectorAll('[data-jump-plan]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const scrollBox = document.getElementById('priceTableScroll');
+        const targetTh = document.querySelector(`#tableHead th[data-plan-group="${btn.dataset.jumpPlan}"]`);
+        const countryTh = document.querySelector('#tableHead th.country-head');
+        const rankTh = document.querySelector('#tableHead th.rank-head');
+        if (scrollBox && targetTh) {
+          const stickyWidth = (rankTh?.offsetWidth || 34) + (countryTh?.offsetWidth || 124);
+          scrollBox.scrollTo({ left: Math.max(0, targetTh.offsetLeft - stickyWidth), behavior: 'smooth' });
+        }
+      });
+    });
+  }
 }
 
 function renderCellHtml(row, col, idx, cols) {
@@ -476,6 +498,9 @@ function renderCellHtml(row, col, idx, cols) {
       badges.push(`<span class="cell-badge badge-stale">历史待复核 &gt;90天</span>`);
     } else if (cell.historyRetained) {
       badges.push(`<span class="cell-badge badge-history">历史新价 ${escapeHTML(formatDateOnly(cell.historyLastSeen || cell.observedAt))}</span>`);
+    }
+    if (col.source === 'web' && (cell.tax === 'inclusive' || cell.taxInclusive)) {
+      badges.push(`<span class="cell-badge badge-tax">含税</span>`);
     }
 
     let sourceTag = '';
@@ -542,23 +567,22 @@ function renderTable(prod, cols) {
   const sortedRows = sortCountriesForColumn(filtered, sortCol, state.fx);
 
   if (!sortedRows.length) {
-    tbody.innerHTML = `<tr class="empty-table"><td colspan="${3 + cols.length}">没有匹配当前筛选条件的地区。</td></tr>`;
+    tbody.innerHTML = `<tr class="empty-table"><td colspan="${2 + cols.length}">没有匹配当前筛选条件的地区。</td></tr>`;
   } else {
     tbody.innerHTML = sortedRows.map((row, idx) => {
       const pst = row.proxy?.status || 'pending';
       const proxyText = pst === 'ok'
-        ? (row.proxy?.googleIpCountry && row.proxy.googleIpCountry !== row.code ? `匹配 · ${row.proxy.googleIpCountry}` : '已验证')
+        ? (row.proxy?.googleIpCountry && row.proxy.googleIpCountry !== row.code ? `代理·${row.proxy.googleIpCountry}` : '代理✓')
         : pst === 'not_in_proxy_catalog'
-        ? '仅 Apple'
+        ? '仅Apple'
         : pst === 'skipped'
         ? '无需代理'
         : pst === 'error' || pst === 'unreachable' || pst === 'mismatch'
-        ? '失败'
+        ? '代理失败'
         : '待测';
       return `<tr>
         <td class="rank-cell">${idx + 1}</td>
-        <td class="country-cell"><div class="country-name"><span class="country-flag">${escapeHTML(row.flag || '')}</span>${escapeHTML(row.name)}</div><div class="country-code">${escapeHTML(row.code)}</div></td>
-        <td class="proxy-cell"><span class="proxy-badge" data-status="${escapeHTML(pst)}">${escapeHTML(proxyText)}</span></td>
+        <td class="country-cell"><div class="country-name" title="${escapeHTML(row.name)}"><span class="country-flag">${escapeHTML(row.flag || '')}</span>${escapeHTML(row.name)}</div><div class="country-meta"><span class="country-code">${escapeHTML(row.code)}</span><span class="proxy-badge" data-status="${escapeHTML(pst)}">${escapeHTML(proxyText)}</span></div></td>
         ${cols.map((c, i) => renderCellHtml(row, c, i, cols)).join('')}
       </tr>`;
     }).join('');
@@ -578,6 +602,28 @@ function renderTable(prod, cols) {
       openDetailDialog(btn.dataset.country, btn.dataset.channel, btn.dataset.plan);
     });
   });
+
+  if (typeof requestAnimationFrame === 'function') {
+    requestAnimationFrame(syncScrollAssist);
+  }
+}
+
+export function syncScrollAssist() {
+  const scrollBox = document.getElementById('priceTableScroll');
+  const assist = document.getElementById('tableScrollAssist');
+  const slider = document.getElementById('tableScrollSlider');
+  const leftBtn = document.getElementById('scrollLeftBtn');
+  const rightBtn = document.getElementById('scrollRightBtn');
+  if (!scrollBox || !assist) return;
+  const maxScroll = Math.max(0, scrollBox.scrollWidth - scrollBox.clientWidth);
+  assist.hidden = maxScroll <= 4;
+  if (assist.hidden) return;
+  if (slider) {
+    slider.max = String(maxScroll);
+    slider.value = String(Math.round(scrollBox.scrollLeft));
+  }
+  if (leftBtn) leftBtn.disabled = scrollBox.scrollLeft <= 2;
+  if (rightBtn) rightBtn.disabled = scrollBox.scrollLeft >= maxScroll - 2;
 }
 
 function openDetailDialog(countryCode, channel, planKey) {
@@ -607,6 +653,10 @@ function openDetailDialog(countryCode, channel, planKey) {
   }
 
   let extraFieldsHtml = '';
+  if (channel === 'web' && state.activeProduct === 'chatgpt' && (cell.tax === 'exclusive' || cell.tax === 'inclusive' || cell.taxInclusive)) {
+    const isInc = cell.tax === 'inclusive' || cell.taxInclusive;
+    extraFieldsHtml += `<dt>计税口径</dt><dd>${isInc ? '含税直出（tax: inclusive，官方该地区未提供不含税节点，已标「含税」纳入排名）' : '不含税直出（tax: exclusive）'}</dd>`;
+  }
   if (cell.appName) {
     extraFieldsHtml += `<dt>来源 App</dt><dd>${escapeHTML(cell.appName)} (ID ${escapeHTML(cell.appId || '—')})</dd>`;
   }
@@ -646,8 +696,8 @@ function openDetailDialog(countryCode, channel, planKey) {
   if (state.admin.authenticated) {
     adminCalibrateHtml = `<div class="evidence-section"><h3>管理员 · 实测新开月价校准</h3>
       <form id="cellOverrideForm" class="form-grid">
-        <label class="form-field">币种（3位ISO）<input name="currency" required maxlength="3" value="${escapeHTML(cell.currency || row.web?.currency || '')}" placeholder="TRY"></label>
-        <label class="form-field">实测月付金额<input name="amount" type="number" step="0.01" min="0.01" required value="${escapeHTML(cell.amount || '')}" placeholder="4749.99"></label>
+        <label class="form-field">币种（3位ISO）<input name="currency" required maxlength="3" value="${escapeHTML(cell.currency || row.web?.currency || '')}" placeholder="例如 USD"></label>
+        <label class="form-field">实测月付金额<input name="amount" type="number" step="0.01" min="0.01" required value="${escapeHTML(cell.amount || '')}" placeholder="例如 19.99"></label>
         <label class="form-field" style="grid-column:1 / -1">校准备注<input name="note" maxlength="180" value="${escapeHTML(cell.manualOverrideNote || '')}" placeholder="例如：iOS 土区 App Store 实测新开月价"></label>
         <div class="button-row" style="grid-column:1 / -1">
           <button type="submit" class="button button-primary">保存实测校准价</button>
@@ -960,6 +1010,27 @@ async function boot() {
   document.getElementById('closeAdminBtn').addEventListener('click', () => {
     document.getElementById('adminDialog').close();
   });
+
+  const scrollBox = document.getElementById('priceTableScroll');
+  const slider = document.getElementById('tableScrollSlider');
+  document.getElementById('scrollLeftBtn')?.addEventListener('click', () => {
+    scrollBox?.scrollBy({ left: -320, behavior: 'smooth' });
+  });
+  document.getElementById('scrollRightBtn')?.addEventListener('click', () => {
+    scrollBox?.scrollBy({ left: 320, behavior: 'smooth' });
+  });
+  slider?.addEventListener('input', () => {
+    if (scrollBox) scrollBox.scrollLeft = Number(slider.value);
+    syncScrollAssist();
+  });
+  scrollBox?.addEventListener('scroll', syncScrollAssist, { passive: true });
+  scrollBox?.addEventListener('wheel', (ev) => {
+    if (ev.shiftKey && Math.abs(ev.deltaY) > Math.abs(ev.deltaX)) {
+      ev.preventDefault();
+      scrollBox.scrollLeft += ev.deltaY;
+    }
+  }, { passive: false });
+  window.addEventListener('resize', syncScrollAssist);
 
   const statusPill = document.getElementById('serviceState');
   try {

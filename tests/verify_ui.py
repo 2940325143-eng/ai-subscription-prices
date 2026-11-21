@@ -69,6 +69,29 @@ def main() -> int:
                 page.get_by_role("button", name="全部 7 档").click()
                 assert page.locator("#tableHead th.channel-head").count() == 12
 
+                # Check sticky left country column + horizontal scroll assist when table overflows (e.g. 903px & 390px)
+                if vp["width"] <= 950:
+                    assist_visible = page.locator("#tableScrollAssist").is_visible()
+                    assert assist_visible, f"Expected #tableScrollAssist visible at {vp}"
+                    country_cell = page.locator("tbody tr td.country-cell").first
+                    before_box = country_cell.bounding_box()
+                    assert page.evaluate("getComputedStyle(document.querySelector('td.country-cell')).position") == "sticky"
+                    page.locator("#scrollRightBtn").click()
+                    page.wait_for_timeout(350)
+                    scroll_left = page.evaluate("document.getElementById('priceTableScroll').scrollLeft")
+                    assert scroll_left > 50, f"Horizontal scroll button did not scroll table at {vp}: {scroll_left}"
+                    after_box = country_cell.bounding_box()
+                    assert abs(before_box["x"] - after_box["x"]) < 2.0, f"Sticky country column shifted horizontally at {vp}"
+                    page.locator("#scrollLeftBtn").click()
+                    page.wait_for_timeout(350)
+
+                if vp["width"] == 1440:
+                    # Verify BS tax-inclusive cell renders directly with 含税 badge
+                    page.locator("#searchInput").fill("巴哈马")
+                    bs_text = page.locator("#tableBody").inner_text()
+                    assert "7.25" in bs_text and "含税" in bs_text, "BS tax-inclusive ChatGPT GO missing 7.25 / 含税 badge"
+                    page.locator("#searchInput").fill("")
+
                 # Switch to Google AI Ultra tab
                 page.locator("#tabGoogleUltra").click()
                 page.wait_for_selector("text=Ultra 5× (20 TB)")

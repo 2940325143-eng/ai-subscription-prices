@@ -138,3 +138,30 @@ test('applyOverridesAndGuardToProduct promotes manual override and clears suspec
   const a5 = mins.find((m) => m.column.key === 'ultra5x-apple');
   assert.equal(a5.winner.country.code, 'TR');
 });
+
+test('minimumPricesForProduct includes tax-inclusive ChatGPT web cells in ranking', () => {
+  const fx = { rates: { EUR: { rate: 1 }, USD: { rate: 1.1 } } };
+  const rawProd = {
+    applePlans: ['go', 'plus', 'pro100', 'pro200', 'pro500'],
+    countries: [
+      {
+        code: 'BS',
+        name: '巴哈马',
+        excluded: false,
+        web: { cells: { go: { status: 'ok', currency: 'USD', amount: 7.25, tax: 'inclusive', taxInclusive: true } } },
+        apple: { cells: {} },
+      },
+      {
+        code: 'US',
+        name: '美国',
+        excluded: false,
+        web: { cells: { go: { status: 'ok', currency: 'USD', amount: 8.0, tax: 'exclusive', taxInclusive: false } } },
+        apple: { cells: {} },
+      },
+    ],
+  };
+  const mins = minimumPricesForProduct(rawProd, buildColumns('chatgpt', 'web'), fx);
+  const goMin = mins.find((m) => m.column.key === 'go-web');
+  assert.equal(goMin.winner.country.code, 'BS');
+  assert.equal(goMin.winner.cell.tax, 'inclusive');
+});
