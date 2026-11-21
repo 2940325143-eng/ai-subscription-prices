@@ -1,0 +1,699 @@
+{
+  "developerId": "281956209",
+  "developerName": "Google",
+  "sellerName": "Google LLC",
+  "discoveredAt": "2026-11-21T03:19:34+00:00",
+  "seedStorefronts": [
+    "us",
+    "gb",
+    "jp",
+    "in",
+    "tr",
+    "de",
+    "br",
+    "sg",
+    "au",
+    "kr"
+  ],
+  "appCount": 80,
+  "iapAppCount": 16,
+  "noIapAppCount": 64,
+  "apps": {
+    "6477489729": "Google Gemini",
+    "1451784328": "Google One",
+    "284815942": "Google",
+    "6737527615": "Gemini Notebook",
+    "909319292": "Google Calendar: Get Organized",
+    "535886823": "Google Chrome",
+    "842842640": "Google Docs",
+    "422689480": "Gmail - Email by Google",
+    "962194608": "Google Photos: Backup & Edit",
+    "507874739": "Google Drive",
+    "585027354": "Google Maps",
+    "842849113": "Google Sheets",
+    "879478102": "Google Slides",
+    "1096918571": "Google Meet",
+    "1163852619": "Google Chat",
+    "1029207872": "Google Keep - Notes and lists",
+    "293622097": "Google Earth",
+    "318698524": "Google Voice",
+    "388497605": "Google Authenticator",
+    "400989007": "Google Play Books & Audiobooks",
+    "414706506": "Google Translate",
+    "439438619": "Snapseed: Photo Editor, Camera",
+    "459182288": "Google News",
+    "462638897": "Google Health (Fitbit)",
+    "544007664": "YouTube",
+    "680819774": "Google Home",
+    "746894884": "Google TV: Watch Movies & TV",
+    "763852089": "Google Device Policy",
+    "779592978": "Google Admin",
+    "881599038": "Google Analytics",
+    "888530356": "YouTube Studio",
+    "919087726": "Photomath",
+    "924620788": "Google Classroom",
+    "936971630": "YouTube Kids",
+    "986496028": "Wear OS by Google",
+    "987962261": "Google Cardboard",
+    "1005120814": "Google Cloud",
+    "1017492454": "YouTube Music",
+    "1031988940": "Creative Preview",
+    "1037457231": "Google Ads",
+    "1050970557": "Google Arts & Culture",
+    "1089353281": "IMA Video Suite Inspector",
+    "1091700242": "Gboard – the Google Keyboard",
+    "1150085200": "Google Family Link",
+    "1152066360": "Google Smart Lock",
+    "1165525994": "PhotoScan by Google Photos",
+    "1193350206": "YouTube TV",
+    "1193357041": "Google Pay: UPI, Cards, Loans",
+    "1210181597": "Google Cloud Search",
+    "1220976145": "Google Assistant",
+    "1227019728": "Google Opinion Rewards",
+    "1353634006": "Google Tasks: Get Things Done",
+    "1413936031": "Google Fi Wireless",
+    "1433864494": "Google Fit: Activity Tracker",
+    "1455562397": "Screenwise Meter",
+    "1486125121": "Google Pay Singapore",
+    "1533498070": "Looker Mobile (Legacy)",
+    "1606772645": "Google Play Console",
+    "1621113388": "Fitbit Ace",
+    "1644381985": "Looker",
+    "1672448423": "Online Insights",
+    "6443885718": "Google ID Verify",
+    "6444540037": "Screenwise Extension",
+    "6446294229": "Online Insights Study",
+    "6449987166": "Android Switch",
+    "6475613159": "Google Pay for Business",
+    "6476327393": "YouTube Create: Video editor",
+    "6670769209": "Google Shopping Deals",
+    "6738965857": "Where is My Train - by Google",
+    "6744536862": "Google Gemini Enterprise",
+    "6745572359": "YouTube for visionOS",
+    "6746882749": "reCAPTCHA",
+    "6748778630": "Dreambeans",
+    "6749645337": "Google AI Edge Gallery",
+    "6751294549": "Google Flow",
+    "6752505850": "Link to Googlebook",
+    "6756505519": "Google AI Edge Eloquent",
+    "6760315723": "Google Flow Music",
+    "6761386270": "Google Wallet",
+    "6794025475": "Debug Dispatch"
+  },
+  "iapApps": {
+    "6477489729": "Google Gemini",
+    "1451784328": "Google One",
+    "284815942": "Google",
+    "6737527615": "Gemini Notebook",
+    "909319292": "Google Calendar: Get Organized",
+    "535886823": "Google Chrome",
+    "842842640": "Google Docs",
+    "422689480": "Gmail - Email by Google",
+    "962194608": "Google Photos: Backup & Edit",
+    "507874739": "Google Drive",
+    "585027354": "Google Maps",
+    "462638897": "Google Health (Fitbit)",
+    "544007664": "YouTube",
+    "919087726": "Photomath",
+    "1017492454": "YouTube Music",
+    "6760315723": "Google Flow Music"
+  },
+  "noIapApps": {
+    "842849113": {
+      "appId": "842849113",
+      "appName": "Google Sheets",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-sheets/id842849113",
+      "checkedAt": "2026-11-21T03:19:13+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "879478102": {
+      "appId": "879478102",
+      "appName": "Google Slides",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-slides/id879478102",
+      "checkedAt": "2026-11-21T03:19:13+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1096918571": {
+      "appId": "1096918571",
+      "appName": "Google Meet",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-meet/id1096918571",
+      "checkedAt": "2026-11-21T03:19:13+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1163852619": {
+      "appId": "1163852619",
+      "appName": "Google Chat",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-chat/id1163852619",
+      "checkedAt": "2026-11-21T03:19:13+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1029207872": {
+      "appId": "1029207872",
+      "appName": "Google Keep - Notes and lists",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-keep-notes-and-lists/id1029207872",
+      "checkedAt": "2026-11-21T03:19:14+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "293622097": {
+      "appId": "293622097",
+      "appName": "Google Earth",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-earth/id293622097",
+      "checkedAt": "2026-11-21T03:19:14+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "318698524": {
+      "appId": "318698524",
+      "appName": "Google Voice",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-voice/id318698524",
+      "checkedAt": "2026-11-21T03:19:14+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "388497605": {
+      "appId": "388497605",
+      "appName": "Google Authenticator",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-authenticator/id388497605",
+      "checkedAt": "2026-11-21T03:19:15+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "400989007": {
+      "appId": "400989007",
+      "appName": "Google Play Books & Audiobooks",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-play-books-audiobooks/id400989007",
+      "checkedAt": "2026-11-21T03:19:14+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "414706506": {
+      "appId": "414706506",
+      "appName": "Google Translate",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-translate/id414706506",
+      "checkedAt": "2026-11-21T03:19:15+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "439438619": {
+      "appId": "439438619",
+      "appName": "Snapseed: Photo Editor, Camera",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/snapseed-photo-editor-camera/id439438619",
+      "checkedAt": "2026-11-21T03:19:15+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "459182288": {
+      "appId": "459182288",
+      "appName": "Google News",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-news/id459182288",
+      "checkedAt": "2026-11-21T03:19:15+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "680819774": {
+      "appId": "680819774",
+      "appName": "Google Home",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-home/id680819774",
+      "checkedAt": "2026-11-21T03:19:16+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "746894884": {
+      "appId": "746894884",
+      "appName": "Google TV: Watch Movies & TV",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-tv-watch-movies-tv/id746894884",
+      "checkedAt": "2026-11-21T03:19:17+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "763852089": {
+      "appId": "763852089",
+      "appName": "Google Device Policy",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-device-policy/id763852089",
+      "checkedAt": "2026-11-21T03:19:16+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "779592978": {
+      "appId": "779592978",
+      "appName": "Google Admin",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-admin/id779592978",
+      "checkedAt": "2026-11-21T03:19:17+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "881599038": {
+      "appId": "881599038",
+      "appName": "Google Analytics",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-analytics/id881599038",
+      "checkedAt": "2026-11-21T03:19:17+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "888530356": {
+      "appId": "888530356",
+      "appName": "YouTube Studio",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/youtube-studio/id888530356",
+      "checkedAt": "2026-11-21T03:19:18+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "924620788": {
+      "appId": "924620788",
+      "appName": "Google Classroom",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-classroom/id924620788",
+      "checkedAt": "2026-11-21T03:19:18+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "936971630": {
+      "appId": "936971630",
+      "appName": "YouTube Kids",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/youtube-kids/id936971630",
+      "checkedAt": "2026-11-21T03:19:19+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "986496028": {
+      "appId": "986496028",
+      "appName": "Wear OS by Google",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/wear-os-by-google/id986496028",
+      "checkedAt": "2026-11-21T03:19:19+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "987962261": {
+      "appId": "987962261",
+      "appName": "Google Cardboard",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-cardboard/id987962261",
+      "checkedAt": "2026-11-21T03:19:19+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1005120814": {
+      "appId": "1005120814",
+      "appName": "Google Cloud",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-cloud/id1005120814",
+      "checkedAt": "2026-11-21T03:19:20+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1031988940": {
+      "appId": "1031988940",
+      "appName": "Creative Preview",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/creative-preview/id1031988940",
+      "checkedAt": "2026-11-21T03:19:20+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1037457231": {
+      "appId": "1037457231",
+      "appName": "Google Ads",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-ads/id1037457231",
+      "checkedAt": "2026-11-21T03:19:21+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1050970557": {
+      "appId": "1050970557",
+      "appName": "Google Arts & Culture",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-arts-culture/id1050970557",
+      "checkedAt": "2026-11-21T03:19:21+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1089353281": {
+      "appId": "1089353281",
+      "appName": "IMA Video Suite Inspector",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/ima-video-suite-inspector/id1089353281",
+      "checkedAt": "2026-11-21T03:19:21+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1091700242": {
+      "appId": "1091700242",
+      "appName": "Gboard – the Google Keyboard",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/gboard-the-google-keyboard/id1091700242",
+      "checkedAt": "2026-11-21T03:19:22+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1150085200": {
+      "appId": "1150085200",
+      "appName": "Google Family Link",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-family-link/id1150085200",
+      "checkedAt": "2026-11-21T03:19:22+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1152066360": {
+      "appId": "1152066360",
+      "appName": "Google Smart Lock",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-smart-lock/id1152066360",
+      "checkedAt": "2026-11-21T03:19:24+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1165525994": {
+      "appId": "1165525994",
+      "appName": "PhotoScan by Google Photos",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/photoscan-by-google-photos/id1165525994",
+      "checkedAt": "2026-11-21T03:19:23+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1193350206": {
+      "appId": "1193350206",
+      "appName": "YouTube TV",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/youtube-tv/id1193350206",
+      "checkedAt": "2026-11-21T03:19:23+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1193357041": {
+      "appId": "1193357041",
+      "appName": "Google Pay: UPI, Cards, Loans",
+      "checkedStorefront": "IN",
+      "sourceUrl": "https://apps.apple.com/in/app/google-pay-upi-cards-loans/id1193357041",
+      "checkedAt": "2026-11-21T03:19:23+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1210181597": {
+      "appId": "1210181597",
+      "appName": "Google Cloud Search",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-cloud-search/id1210181597",
+      "checkedAt": "2026-11-21T03:19:24+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1220976145": {
+      "appId": "1220976145",
+      "appName": "Google Assistant",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-assistant/id1220976145",
+      "checkedAt": "2026-11-21T03:19:25+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1227019728": {
+      "appId": "1227019728",
+      "appName": "Google Opinion Rewards",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-opinion-rewards/id1227019728",
+      "checkedAt": "2026-11-21T03:19:25+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1353634006": {
+      "appId": "1353634006",
+      "appName": "Google Tasks: Get Things Done",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-tasks-get-things-done/id1353634006",
+      "checkedAt": "2026-11-21T03:19:25+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1413936031": {
+      "appId": "1413936031",
+      "appName": "Google Fi Wireless",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-fi-wireless/id1413936031",
+      "checkedAt": "2026-11-21T03:19:27+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1433864494": {
+      "appId": "1433864494",
+      "appName": "Google Fit: Activity Tracker",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-fit-activity-tracker/id1433864494",
+      "checkedAt": "2026-11-21T03:19:26+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1455562397": {
+      "appId": "1455562397",
+      "appName": "Screenwise Meter",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/screenwise-meter/id1455562397",
+      "checkedAt": "2026-11-21T03:19:26+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1486125121": {
+      "appId": "1486125121",
+      "appName": "Google Pay Singapore",
+      "checkedStorefront": "SG",
+      "sourceUrl": "https://apps.apple.com/sg/app/google-pay-singapore/id1486125121",
+      "checkedAt": "2026-11-21T03:19:26+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1533498070": {
+      "appId": "1533498070",
+      "appName": "Looker Mobile (Legacy)",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/looker-mobile-legacy/id1533498070",
+      "checkedAt": "2026-11-21T03:19:27+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1606772645": {
+      "appId": "1606772645",
+      "appName": "Google Play Console",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-play-console/id1606772645",
+      "checkedAt": "2026-11-21T03:19:27+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1621113388": {
+      "appId": "1621113388",
+      "appName": "Fitbit Ace",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/fitbit-ace/id1621113388",
+      "checkedAt": "2026-11-21T03:19:28+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1644381985": {
+      "appId": "1644381985",
+      "appName": "Looker",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/looker/id1644381985",
+      "checkedAt": "2026-11-21T03:19:29+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "1672448423": {
+      "appId": "1672448423",
+      "appName": "Online Insights",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/online-insights/id1672448423?mt=12",
+      "checkedAt": "2026-11-21T03:19:29+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6443885718": {
+      "appId": "6443885718",
+      "appName": "Google ID Verify",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-id-verify/id6443885718",
+      "checkedAt": "2026-11-21T03:19:29+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6444540037": {
+      "appId": "6444540037",
+      "appName": "Screenwise Extension",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/screenwise-extension/id6444540037?mt=12",
+      "checkedAt": "2026-11-21T03:19:29+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6446294229": {
+      "appId": "6446294229",
+      "appName": "Online Insights Study",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/online-insights-study/id6446294229",
+      "checkedAt": "2026-11-21T03:19:30+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6449987166": {
+      "appId": "6449987166",
+      "appName": "Android Switch",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/android-switch/id6449987166",
+      "checkedAt": "2026-11-21T03:19:30+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6475613159": {
+      "appId": "6475613159",
+      "appName": "Google Pay for Business",
+      "checkedStorefront": "IN",
+      "sourceUrl": "https://apps.apple.com/in/app/google-pay-for-business/id6475613159",
+      "checkedAt": "2026-11-21T03:19:30+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6476327393": {
+      "appId": "6476327393",
+      "appName": "YouTube Create: Video editor",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/youtube-create-video-editor/id6476327393",
+      "checkedAt": "2026-11-21T03:19:31+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6670769209": {
+      "appId": "6670769209",
+      "appName": "Google Shopping Deals",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-shopping-deals/id6670769209?mt=12",
+      "checkedAt": "2026-11-21T03:19:32+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6738965857": {
+      "appId": "6738965857",
+      "appName": "Where is My Train - by Google",
+      "checkedStorefront": "IN",
+      "sourceUrl": "https://apps.apple.com/in/app/where-is-my-train-by-google/id6738965857",
+      "checkedAt": "2026-11-21T03:19:31+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6744536862": {
+      "appId": "6744536862",
+      "appName": "Google Gemini Enterprise",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-gemini-enterprise/id6744536862",
+      "checkedAt": "2026-11-21T03:19:31+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6745572359": {
+      "appId": "6745572359",
+      "appName": "YouTube for visionOS",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/youtube-for-visionos/id6745572359",
+      "checkedAt": "2026-11-21T03:19:32+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6746882749": {
+      "appId": "6746882749",
+      "appName": "reCAPTCHA",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/recaptcha/id6746882749",
+      "checkedAt": "2026-11-21T03:19:32+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6748778630": {
+      "appId": "6748778630",
+      "appName": "Dreambeans",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/dreambeans/id6748778630",
+      "checkedAt": "2026-11-21T03:19:33+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6749645337": {
+      "appId": "6749645337",
+      "appName": "Google AI Edge Gallery",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-ai-edge-gallery/id6749645337",
+      "checkedAt": "2026-11-21T03:19:32+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6751294549": {
+      "appId": "6751294549",
+      "appName": "Google Flow",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-flow/id6751294549",
+      "checkedAt": "2026-11-21T03:19:33+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6752505850": {
+      "appId": "6752505850",
+      "appName": "Link to Googlebook",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/link-to-googlebook/id6752505850",
+      "checkedAt": "2026-11-21T03:19:33+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6756505519": {
+      "appId": "6756505519",
+      "appName": "Google AI Edge Eloquent",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-ai-edge-eloquent/id6756505519",
+      "checkedAt": "2026-11-21T03:19:33+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6761386270": {
+      "appId": "6761386270",
+      "appName": "Google Wallet",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/google-wallet/id6761386270",
+      "checkedAt": "2026-11-21T03:19:34+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    },
+    "6794025475": {
+      "appId": "6794025475",
+      "appName": "Debug Dispatch",
+      "checkedStorefront": "US",
+      "sourceUrl": "https://apps.apple.com/us/app/debug-dispatch/id6794025475",
+      "checkedAt": "2026-11-21T03:19:34+00:00",
+      "hasInAppPurchases": false,
+      "reason": "已进入该 Google 官方软件商店页核验：无任何 App 内购买/订阅项"
+    }
+  }
+}

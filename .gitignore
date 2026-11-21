@@ -1,0 +1,12 @@
+.env
+.env.*
+__pycache__/
+*.py[cod]
+.pytest_cache/
+node_modules/
+qa/
+*.tmp
+*.log
+.DS_Store
+.wrangler/
+.vercel/

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="ChatGPT（7 档）与 Google AI Ultra（2 档）全球月付价格对比：官网住宅代理不含税直出报价与 App Store 公开新开价分栏核验，附 90 天历史新价账本与同币种旧续订价识别。">
+  <title>全球 AI 订阅月价 · ChatGPT 与 Google AI Ultra</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='52' font-size='52'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="page-header">
+      <div class="brand">
+        <span class="brand-symbol" aria-hidden="true">✦</span>
+        <span>全球 AI 订阅价格观察</span>
+        <span class="local-label">云端静态发布 · 每日 04:00 巡检 Apple</span>
+        <button id="openAdminBtn" class="admin-entry-btn" type="button">管理员</button>
+      </div>
+
+      <div class="hero-row">
+        <div>
+          <p class="eyebrow">OFFICIAL WEB + APP STORE · MONTHLY ONLY</p>
+          <h1>AI 订阅 <span>全球月价</span></h1>
+          <p id="heroDescription" class="hero-description">官网住宅代理按实际 IP 拉取不含税月付基准，App Store 自动隔离年付与老用户旧续订价。</p>
+        </div>
+        <div class="header-status">
+          <span id="serviceState" class="status-pill" data-state="loading">正在加载数据</span>
+          <span id="lastUpdated">等待加载快照</span>
+        </div>
+      </div>
+
+      <nav class="product-tabs" aria-label="产品切换">
+        <button id="tabChatgpt" class="product-tab active" type="button" data-product="chatgpt" aria-pressed="true">
+          ChatGPT <span class="tab-badge">7 档</span>
+        </button>
+        <button id="tabGoogleUltra" class="product-tab" type="button" data-product="google_ultra" aria-pressed="false">
+          Google AI Ultra <span class="tab-badge tab-badge-purple">2 档</span>
+        </button>
+      </nav>
+
+      <div class="coverage-strip" aria-label="数据覆盖统计">
+        <div><strong id="candidateCount">—</strong><span>覆盖地区</span></div>
+        <div><strong id="validCount">—</strong><span>含有效月价地区</span></div>
+        <div><strong id="suspectCount">—</strong><span>疑似旧续订价</span></div>
+        <div><strong id="historyRetainedCount">—</strong><span>历史新价留存</span></div>
+        <p id="channelCoverage">官网不含税直出 · App Store 新价优先</p>
+      </div>
+    </header>
+
+    <section class="minimum-section" aria-labelledby="minimumTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">AT A GLANCE</p>
+          <h2 id="minimumTitle">最低月价看板</h2>
+        </div>
+        <span id="minimumSubtle" class="subtle">按欧元升序 · 点击卡片定位对应排序</span>
+      </div>
+      <div id="minimumGrid" class="minimum-grid" aria-live="polite"></div>
+      <div id="guardNotice" class="guard-notice" hidden></div>
+      <p id="sectionNote" class="section-note"></p>
+    </section>
+
+    <section class="price-section" aria-labelledby="tableTitle">
+      <div class="table-toolbar">
+        <div>
+          <p class="eyebrow">REGIONAL PRICE EXPLORER</p>
+          <h2 id="tableTitle">各地区订阅月价</h2>
+          <p id="tableStats">正在读取已发布价格数据…</p>
+        </div>
+        <div class="table-controls">
+          <div id="tierFilters" class="tier-filters" role="group" aria-label="档位与渠道筛选"></div>
+          <div class="toggle-filters">
+            <label class="filter-label"><input id="verifiedOnlyInput" type="checkbox">只看有有效月价</label>
+            <label class="filter-label"><input id="suspectOnlyInput" type="checkbox">只看疑似旧续订价</label>
+            <label class="search-field">
+              <span aria-hidden="true">⌕</span>
+              <input id="searchInput" type="search" autocomplete="off" aria-label="搜索国家名称或地区代码" placeholder="搜索国家 / 代码">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div id="priceTableScroll" class="table-scroll" tabindex="0" aria-label="全球价格表，可横向滚动">
+        <table id="priceTable">
+          <caption id="tableCaption" class="visually-hidden">各地区每月订阅价格；点击价格表头按欧元升序排列</caption>
+          <thead id="tableHead"></thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
+      <p id="tableFootnote" class="table-footnote">
+        点击任意价格格查看原始来源、候选明细与 90 天历史新价轨迹。同币种下若 App Store 公开价低于官网 65%，自动标黄为「疑似旧续订价」并移出最低价看板；公开页面未露出时由每日 04:00 直连巡检账本保留近 90 天最高有效新价。
+      </p>
+
+      <details class="excluded-panel">
+        <summary id="excludedSummary">双渠道均确认不支持的地区（0）</summary>
+        <div id="excludedList">暂无确认双渠道不可用的地区。</div>
+      </details>
+    </section>
+
+    <footer class="page-footer">
+      <div>
+        <strong>意大利央行 · 官方汇率</strong>
+        <p id="fxState">正在读取汇率快照</p>
+      </div>
+      <div class="footer-right">
+        <span id="patrolScheduleFooter">每日北京时间 04:00 自动直连巡检 Apple（零代理消耗）</span>
+        <span>纯只读比价页面 · 代理凭据仅存 GitHub Actions Encrypted Secrets</span>
+      </div>
+    </footer>
+  </main>
+
+  <dialog id="priceDetails" class="price-dialog" aria-labelledby="detailTitle">
+    <div class="dialog-heading">
+      <div>
+        <p class="eyebrow">SOURCE, HISTORY & VERIFICATION</p>
+        <h2 id="detailTitle">价格与核验详情</h2>
+      </div>
+      <button id="closeDetailsBtn" type="button" class="dialog-close" aria-label="关闭详情">×</button>
+    </div>
+    <div id="detailBody"></div>
+  </dialog>
+
+  <dialog id="adminDialog" class="price-dialog admin-dialog" aria-labelledby="adminTitle">
+    <div class="dialog-heading">
+      <div>
+        <p class="eyebrow">CLOUD OPERATIONS & OVERRIDES</p>
+        <h2 id="adminTitle">管理员控制台</h2>
+      </div>
+      <button id="closeAdminBtn" type="button" class="dialog-close" aria-label="关闭管理员窗口">×</button>
+    </div>
+    <div id="adminBody"></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

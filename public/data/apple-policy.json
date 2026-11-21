@@ -1,0 +1,14 @@
+{
+  "verified": true,
+  "verifiedAt": "2026-11-20T08:14:50+00:00",
+  "identitySource": "https://support.google.com/googleone/answer/16476748?hl=en",
+  "periodSource": "https://one.google.com/about/google-ai-plans/?gl=US&hl=en",
+  "mapping": {
+    "20TB": "ultra5x",
+    "30TB": "ultra20x"
+  },
+  "monthlyOnly": true,
+  "identityText": "Google AI Ultra 5x (20 TB of storage) | Google AI Ultra 20x (30 TB of storage)",
+  "periodText": "Ultra plans are billed monthly only",
+  "reason": "官方明确 Ultra 5x 对应 20 TB、20x 对应 30 TB，且 Ultra 仅月付"
+}

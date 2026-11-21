@@ -1,0 +1,84 @@
+name: Cloud Price Refresh
+
+on:
+  workflow_dispatch:
+    inputs:
+      product:
+        description: Product to refresh (all, chatgpt, google_ultra)
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - chatgpt
+          - google_ultra
+      scope:
+        description: Channel scope (apple, web, all)
+        required: true
+        default: all
+        type: choice
+        options:
+          - apple
+          - web
+          - all
+      mode:
+        description: Refresh mode (full, retry)
+        required: true
+        default: full
+        type: choice
+        options:
+          - full
+          - retry
+      countries:
+        description: Optional comma-separated ISO alpha-2 country codes (e.g. TR,US)
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pricing-data-write
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install collector dependencies
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: Run cloud price collector
+        env:
+          IPROYAL_PROXY_USER: ${{ inputs.scope != 'apple' && secrets.IPROYAL_PROXY_USER || '' }}
+          IPROYAL_PROXY_PASS: ${{ inputs.scope != 'apple' && secrets.IPROYAL_PROXY_PASS || '' }}
+          IPROYAL_PROXY_ENDPOINT: ${{ inputs.scope != 'apple' && secrets.IPROYAL_PROXY_ENDPOINT || '' }}
+        run: |
+          python3 -m collector.cli \
+            --product "${{ inputs.product }}" \
+            --scope "${{ inputs.scope }}" \
+            --mode "${{ inputs.mode }}" \
+            --countries "${{ inputs.countries }}"
+
+      - name: Commit updated pricing snapshot and ledger
+        run: |
+          if [ -n "$(git status --porcelain public/data)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/data/
+            git commit -m "chore(data): cloud refresh (${{ inputs.product }} / ${{ inputs.scope }} / ${{ inputs.mode }})"
+            git push
+          else
+            echo "No changes in public/data."
+          fi

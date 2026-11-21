@@ -1,0 +1,12 @@
+{
+  "verified": true,
+  "mapping": {
+    "ultra5x": "PRICE_GEN_AI_ULTRA_100_MONTHLY",
+    "ultra20x": "PRICE_GEN_AI_ULTRA_200_MONTHLY"
+  },
+  "sourceUrl": "https://one.google.com/about/google-ai-plans/",
+  "componentUrl": "https://one.google.com/about/assets/d/QTV13cXZ.min.js",
+  "feedVersion": "pricing_2026_11_16.json",
+  "observedAt": "2026-11-21T01:45:54+00:00",
+  "reason": "官方比较表逐列确认 5x／20x 对应独立 MONTHLY 字段；生产组件确认地区价格源"
+}

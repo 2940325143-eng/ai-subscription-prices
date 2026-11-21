@@ -1,0 +1,17 @@
+{
+  "name": "ai-subscription-prices",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloud-hosted global monthly subscription price tracker for ChatGPT (7 tiers) and Google AI Ultra (2 tiers).",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "python3 dev_server.py --port 18780",
+    "migrate": "python3 -m collector.migrate_existing",
+    "test:py": "python3 -m unittest discover -s tests -p 'test_*.py' -v",
+    "test:js": "node --test tests/test_api_core.mjs tests/test_frontend.mjs",
+    "test": "npm run test:py && npm run test:js"
+  }
+}

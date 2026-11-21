@@ -1,0 +1,46 @@
+name: Daily Apple Patrol (04:00 CST)
+
+on:
+  schedule:
+    # 20:00 UTC == 04:00 Asia/Shanghai (CST)
+    - cron: '0 20 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pricing-data-write
+  cancel-in-progress: false
+
+jobs:
+  patrol:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install collector dependencies
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt
+
+      - name: Run daily direct Apple patrol (zero proxy traffic)
+        run: python3 -m collector.cli --product all --scope apple --mode full
+
+      - name: Commit updated pricing snapshot and ledger
+        run: |
+          if [ -n "$(git status --porcelain public/data)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/data/
+            git commit -m "chore(data): daily Apple patrol & FX update"
+            git push
+          else
+            echo "No changes in public/data."
+          fi
