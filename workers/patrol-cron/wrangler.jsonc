@@ -1,7 +1,7 @@
 {
   "name": "ai-prices-patrol-cron",
   "main": "src/index.js",
-  "compatibility_date": "2026-11-22",
+  "compatibility_date": "2026-11-21",
   "observability": {
     "enabled": true,
     "logs": { "enabled": true, "head_sampling_rate": 1 },
