@@ -5,6 +5,9 @@ import {
   PRODUCT_CONFIG,
   applyOverridesAndGuardToProduct,
   buildColumns,
+  formatFxUpdatedDisplay,
+  formatProductFreshness,
+  formatTime,
   minimumPricesForProduct,
 } from '../public/app.js';
 
@@ -164,4 +167,47 @@ test('minimumPricesForProduct includes tax-inclusive ChatGPT web cells in rankin
   const goMin = mins.find((m) => m.column.key === 'go-web');
   assert.equal(goMin.winner.country.code, 'BS');
   assert.equal(goMin.winner.cell.tax, 'inclusive');
+});
+
+test('formatTime formats ISO timestamps as YYYY-MM-DD HH:mm and handles empty/invalid input', () => {
+  assert.match(formatTime('2026-11-13T05:03:13+00:00'), /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/);
+  assert.equal(formatTime(null), '—');
+  assert.equal(formatTime(''), '—');
+  assert.equal(formatTime('not-a-date'), 'not-a-date');
+});
+
+test('formatFxUpdatedDisplay prefers official referenceDate and falls back to updatedAt', () => {
+  const withRef = formatFxUpdatedDisplay({
+    referenceDate: '2026-11-20',
+    updatedAt: '2026-11-21T15:15:53+00:00',
+  });
+  assert.equal(withRef.text, '2026-11-20');
+  assert.equal(withRef.datetime, '2026-11-20');
+
+  const withoutRef = formatFxUpdatedDisplay({
+    updatedAt: '2026-11-21T15:15:53+00:00',
+  });
+  assert.match(withoutRef.text, /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/);
+
+  const empty = formatFxUpdatedDisplay(null);
+  assert.equal(empty.text, '—');
+});
+
+test('formatProductFreshness uses webUpdatedAt and appleUpdatedAt instead of snapshot updatedAt', () => {
+  const prod = {
+    webUpdatedAt: '2026-11-13T05:03:13+00:00',
+    appleUpdatedAt: '2026-11-13T05:04:48+00:00',
+    updatedAt: '2026-11-21T16:48:02+00:00',
+  };
+  const fx = { referenceDate: '2026-11-20', updatedAt: '2026-11-21T15:15:53+00:00' };
+  const expectedWeb = formatTime(prod.webUpdatedAt);
+  const expectedApple = formatTime(prod.appleUpdatedAt);
+  const snapshotTime = formatTime(prod.updatedAt);
+
+  const freshness = formatProductFreshness(prod, fx);
+  assert.equal(freshness.web.text, expectedWeb);
+  assert.equal(freshness.apple.text, expectedApple);
+  assert.notEqual(freshness.web.text, snapshotTime);
+  assert.notEqual(freshness.apple.text, snapshotTime);
+  assert.equal(freshness.fx.text, '2026-11-20');
 });

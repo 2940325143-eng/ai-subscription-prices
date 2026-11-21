@@ -2,6 +2,7 @@
 """Playwright browser UI & responsive verification across desktop, 903px, and mobile."""
 from __future__ import annotations
 
+import re
 import shutil
 import socket
 import sys
@@ -56,6 +57,27 @@ def main() -> int:
                 overflow = page.evaluate("document.documentElement.scrollWidth > window.innerWidth")
                 assert not overflow, f"ChatGPT viewport {vp} horizontal overflow detected"
 
+                # Verify unified freshness card across desktop and mobile
+                card = page.locator("#freshnessCard")
+                assert card.is_visible(), f"#freshnessCard not visible at {vp}"
+                card_text = card.inner_text()
+                for lbl in ("官网数据最新时间", "AppStore 数据最新时间", "银行汇率最新时间"):
+                    assert lbl in card_text, f"Missing freshness label {lbl} at {vp}"
+                web_val = page.locator("#webUpdatedTime").inner_text().strip()
+                apple_val = page.locator("#appleUpdatedTime").inner_text().strip()
+                fx_val = page.locator("#fxUpdatedTime").inner_text().strip()
+                assert re.fullmatch(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}", web_val), f"Unexpected webUpdatedTime {web_val!r} at {vp}"
+                assert re.fullmatch(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}", apple_val), f"Unexpected appleUpdatedTime {apple_val!r} at {vp}"
+                assert re.fullmatch(r"\d{4}-\d{2}-\d{2}", fx_val), f"Unexpected fxUpdatedTime {fx_val!r} at {vp}"
+                card_box = card.bounding_box()
+                assert card_box and card_box["x"] >= 0 and card_box["x"] + card_box["width"] <= vp["width"] + 1, f"#freshnessCard overflows viewport at {vp}: {card_box}"
+                item_heights = page.eval_on_selector_all(".freshness-item", "els => els.map(e => e.getBoundingClientRect().height)")
+                assert item_heights and all(h <= 36 for h in item_heights), f"Wrapped freshness item detected at {vp}: {item_heights}"
+                body_text = page.locator("body").inner_text()
+                assert "快照更新" not in body_text, f"Stale label '快照更新' still visible at {vp}"
+                assert "参考汇率日期" not in body_text, f"Duplicate '参考汇率日期' still visible at {vp}"
+                assert not page.locator("#channelCoverage").is_visible(), f"#channelCoverage should be hidden without overrides at {vp}"
+
                 # Check all 7 tiers visible in ChatGPT tab header
                 header_text = page.locator("#tableHead").inner_text()
                 for label in ("ChatGPT GO", "ChatGPT Plus", "Business Std", "Pro 100", "Business Prem", "Pro 200", "Pro 500"):
@@ -97,6 +119,12 @@ def main() -> int:
                 page.wait_for_selector("text=Ultra 5× (20 TB)")
                 overflow_gu = page.evaluate("document.documentElement.scrollWidth > window.innerWidth")
                 assert not overflow_gu, f"Google AI Ultra viewport {vp} horizontal overflow detected"
+                gu_web_val = page.locator("#webUpdatedTime").inner_text().strip()
+                gu_apple_val = page.locator("#appleUpdatedTime").inner_text().strip()
+                assert re.fullmatch(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}", gu_web_val), f"Unexpected Google webUpdatedTime {gu_web_val!r} at {vp}"
+                assert re.fullmatch(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}", gu_apple_val), f"Unexpected Google appleUpdatedTime {gu_apple_val!r} at {vp}"
+                gu_card_box = page.locator("#freshnessCard").bounding_box()
+                assert gu_card_box and gu_card_box["x"] >= 0 and gu_card_box["x"] + gu_card_box["width"] <= vp["width"] + 1, f"Google #freshnessCard overflows viewport at {vp}"
 
                 # Verify Google Ultra minimum cards do NOT pick Turkey's grandfathered TRY 1,989.99 / 2,949.99
                 min_text = page.locator("#minimumGrid").inner_text()

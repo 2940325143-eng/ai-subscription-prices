@@ -274,12 +274,52 @@ export function formatTime(iso) {
   if (!iso) return '—';
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return String(iso);
-  return d.toLocaleString('zh-CN', { hour12: false, month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+  const pad = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
 export function formatDateOnly(iso) {
   if (!iso) return '—';
   return String(iso).slice(0, 10);
+}
+
+export function formatFxUpdatedDisplay(fx) {
+  const refDate = fx?.referenceDate ? String(fx.referenceDate).trim() : '';
+  if (refDate) {
+    return {
+      text: refDate,
+      datetime: refDate,
+      title: '意大利央行官方参考汇率日期（按欧洲央行工作日更新）',
+    };
+  }
+  if (fx?.updatedAt) {
+    return {
+      text: formatTime(fx.updatedAt),
+      datetime: String(fx.updatedAt),
+      title: '意大利央行官方参考汇率',
+    };
+  }
+  return {
+    text: '—',
+    datetime: '',
+    title: '等待读取意大利央行官方参考汇率',
+  };
+}
+
+export function formatProductFreshness(prod, fx) {
+  const webIso = prod?.webUpdatedAt || null;
+  const appleIso = prod?.appleUpdatedAt || null;
+  return {
+    web: {
+      text: webIso ? formatTime(webIso) : '—',
+      datetime: webIso ? String(webIso) : '',
+    },
+    apple: {
+      text: appleIso ? formatTime(appleIso) : '—',
+      datetime: appleIso ? String(appleIso) : '',
+    },
+    fx: formatFxUpdatedDisplay(fx),
+  };
 }
 
 function showToast(msg) {
@@ -338,10 +378,35 @@ function renderHeaderAndStats(prod) {
   document.getElementById('suspectCount').textContent = String(suspectCells);
   document.getElementById('historyRetainedCount').textContent = String(historyRetainedCells);
 
-  const webAt = prod?.webUpdatedAt ? `官网 ${formatTime(prod.webUpdatedAt)}` : '';
-  const appleAt = prod?.appleUpdatedAt ? `Apple ${formatTime(prod.appleUpdatedAt)}` : '';
-  document.getElementById('channelCoverage').textContent = [webAt, appleAt, overrideCells ? `校准 ${overrideCells}` : ''].filter(Boolean).join(' · ') || '已加载';
-  document.getElementById('lastUpdated').textContent = prod?.updatedAt ? `快照更新：${formatTime(prod.updatedAt)}` : '已就绪';
+  const freshness = formatProductFreshness(prod, state.fx || state.published?.fx);
+  const webTimeEl = document.getElementById('webUpdatedTime');
+  if (webTimeEl) {
+    webTimeEl.textContent = freshness.web.text;
+    if (freshness.web.datetime) {
+      webTimeEl.setAttribute('datetime', freshness.web.datetime);
+    } else {
+      webTimeEl.removeAttribute('datetime');
+    }
+  }
+  const appleTimeEl = document.getElementById('appleUpdatedTime');
+  if (appleTimeEl) {
+    appleTimeEl.textContent = freshness.apple.text;
+    if (freshness.apple.datetime) {
+      appleTimeEl.setAttribute('datetime', freshness.apple.datetime);
+    } else {
+      appleTimeEl.removeAttribute('datetime');
+    }
+  }
+  const coverageEl = document.getElementById('channelCoverage');
+  if (coverageEl) {
+    if (overrideCells > 0) {
+      coverageEl.textContent = `已实测校准 ${overrideCells} 项`;
+      coverageEl.hidden = false;
+    } else {
+      coverageEl.textContent = '';
+      coverageEl.hidden = true;
+    }
+  }
 
   const guardNotice = document.getElementById('guardNotice');
   if (suspectCells > 0) {
@@ -940,11 +1005,26 @@ async function refreshAdminSessionAndStatus() {
 
 function renderFxState() {
   const fx = state.fx || state.published?.fx;
+  const fxInfo = formatFxUpdatedDisplay(fx);
+  const fxTimeEl = document.getElementById('fxUpdatedTime');
+  if (fxTimeEl) {
+    fxTimeEl.textContent = fxInfo.text;
+    if (fxInfo.datetime) {
+      fxTimeEl.setAttribute('datetime', fxInfo.datetime);
+    } else {
+      fxTimeEl.removeAttribute('datetime');
+    }
+  }
+  const fxItemEl = document.getElementById('fxUpdatedItem');
+  if (fxItemEl) {
+    fxItemEl.title = fxInfo.title;
+  }
   const el = document.getElementById('fxState');
   if (!el) return;
-  el.textContent = fx?.referenceDate
-    ? `参考汇率日期：${fx.referenceDate} · 已加载 ${Object.keys(fx.rates || {}).length} 个币种对欧元汇率`
-    : '等待央行汇率';
+  const count = Object.keys(fx?.rates || {}).length;
+  el.textContent = count
+    ? `已加载 ${count} 个币种对欧元官方参考汇率（意大利央行实时同步）`
+    : '正在读取意大利央行官方汇率';
 }
 
 function renderAll() {
@@ -1045,7 +1125,7 @@ async function boot() {
       state.overrides = await ovRes.json();
     }
     statusPill.dataset.state = 'ready';
-    statusPill.textContent = '云端快照已就绪';
+    statusPill.textContent = '云端数据已就绪';
     renderAll();
     refreshAdminSessionAndStatus();
     refreshLiveFx();

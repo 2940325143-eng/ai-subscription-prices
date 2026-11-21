@@ -16,7 +16,7 @@
       <div class="brand">
         <span class="brand-symbol" aria-hidden="true">✦</span>
         <span>全球 AI 订阅价格观察</span>
-        <span class="local-label">云端静态发布 · 每日 04:00 巡检 Apple</span>
+        <span class="local-label">云端公开只读 · 每日自动巡检</span>
         <button id="openAdminBtn" class="admin-entry-btn" type="button">管理员</button>
       </div>
 
@@ -28,7 +28,20 @@
         </div>
         <div class="header-status">
           <span id="serviceState" class="status-pill" data-state="loading">正在加载数据</span>
-          <span id="lastUpdated">等待加载快照</span>
+          <div id="freshnessCard" class="freshness-card" aria-label="数据与汇率最新时间">
+            <div id="webUpdatedItem" class="freshness-item">
+              <span class="freshness-label">官网数据最新时间</span>
+              <time id="webUpdatedTime" class="freshness-value">—</time>
+            </div>
+            <div id="appleUpdatedItem" class="freshness-item">
+              <span class="freshness-label">AppStore 数据最新时间</span>
+              <time id="appleUpdatedTime" class="freshness-value">—</time>
+            </div>
+            <div id="fxUpdatedItem" class="freshness-item">
+              <span class="freshness-label">银行汇率最新时间</span>
+              <time id="fxUpdatedTime" class="freshness-value">—</time>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -46,7 +59,7 @@
         <div><strong id="validCount">—</strong><span>含有效月价地区</span></div>
         <div><strong id="suspectCount">—</strong><span>疑似旧续订价</span></div>
         <div><strong id="historyRetainedCount">—</strong><span>历史新价留存</span></div>
-        <p id="channelCoverage">官网直出月付 · App Store 新价优先</p>
+        <p id="channelCoverage" hidden></p>
       </div>
     </header>
 
@@ -113,7 +126,7 @@
     <footer class="page-footer">
       <div>
         <strong>意大利央行 · 官方汇率</strong>
-        <p id="fxState">正在读取汇率快照</p>
+        <p id="fxState">正在读取意大利央行官方汇率</p>
       </div>
       <div class="footer-right">
         <span id="patrolScheduleFooter">每日北京时间 04:00 自动直连巡检 Apple（零代理消耗）</span>

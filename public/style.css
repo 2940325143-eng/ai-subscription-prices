@@ -60,7 +60,7 @@ h2 { font-size: 19px; letter-spacing: -.3px; }
   color: transparent; background-clip: text; -webkit-background-clip: text;
 }
 .hero-description { margin-top: 12px; font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 760px; }
-.header-status { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-size: 11px; color: #7a8699; white-space: nowrap; }
+.header-status { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-size: 11px; color: #7a8699; flex-shrink: 0; }
 .status-pill {
   display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line);
   border-radius: 40px; padding: 7px 11px; background: #fff; color: #5f6d84;
@@ -68,6 +68,17 @@ h2 { font-size: 19px; letter-spacing: -.3px; }
 .status-pill:before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #a3afbd; }
 .status-pill[data-state=ready]:before { background: #27a577; }
 .status-pill[data-state=error]:before { background: #d84f4f; }
+.freshness-card {
+  display: grid; gap: 6px; min-width: 288px; padding: 10px 14px;
+  border: 1px solid var(--line); border-radius: 12px; background: #fff;
+}
+.freshness-item {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+  font-size: 12px; line-height: 1.4;
+}
+.freshness-item + .freshness-item { border-top: 1px solid #eef2f7; padding-top: 6px; }
+.freshness-label { color: var(--muted); font-weight: 500; white-space: nowrap; }
+.freshness-value { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 .product-tabs { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
 .product-tab {
@@ -176,7 +187,7 @@ h2 { font-size: 19px; letter-spacing: -.3px; }
 .jump-pill:hover { background: #eef4fd; border-color: #adc9f0; color: var(--blue); }
 
 .table-scroll {
-  overflow: auto; max-height: min(72vh, 760px); max-width: 100%;
+  overflow: auto; max-height: min(72vh, 760px); max-height: min(72dvh, 760px); max-width: 100%;
   border: 1px solid var(--line); border-radius: 13px; background: #fff; scrollbar-width: thin;
   position: relative;
 }
@@ -365,14 +376,17 @@ summary { cursor: pointer; font-size: 11px; font-weight: 600; color: #68768c; li
 @media (max-width: 760px) {
   .page-shell { width: calc(100% - 24px); }
   .brand .local-label { margin-left: 0; }
-  .hero-row { flex-direction: column; align-items: flex-start; gap: 14px; margin-top: 20px; }
-  .header-status { flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .hero-row { flex-direction: column; align-items: stretch; gap: 14px; margin-top: 20px; }
+  .header-status { width: 100%; flex-direction: column; align-items: stretch; gap: 8px; }
+  .status-pill { align-self: flex-start; }
+  .freshness-card { width: 100%; min-width: 0; padding: 10px 12px; gap: 7px; }
+  .freshness-item { font-size: 12.5px; gap: 10px; }
   .coverage-strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  .coverage-strip p { display: none; }
+  .coverage-strip p { grid-column: 1 / -1; margin-left: 0; text-align: left; }
   .minimum-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
   .minimum-card { padding: 13px 12px; min-height: 124px; }
   .minimum-card .minimum-local { font-size: 17px; }
-  .table-scroll { max-height: min(68vh, 620px); }
+  .table-scroll { max-height: min(68vh, 620px); max-height: min(68dvh, 620px); }
   .rank-head, td.rank-cell { width: 30px; min-width: 30px; max-width: 30px; padding-left: 7px; padding-right: 3px; }
   .country-head, td.country-cell { width: 98px; min-width: 98px; max-width: 98px; }
   .plan-head th.country-head, td.country-cell { left: 30px; }
