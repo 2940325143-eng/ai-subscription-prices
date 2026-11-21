@@ -1,0 +1,19 @@
+{
+  "name": "ai-prices-patrol-cron",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-22",
+  "observability": {
+    "enabled": true,
+    "logs": { "enabled": true, "head_sampling_rate": 1 },
+    "traces": { "enabled": true, "head_sampling_rate": 1 }
+  },
+  "triggers": {
+    // 21:05 UTC == 05:05 Asia/Shanghai (CST) daily
+    "crons": ["5 21 * * *"]
+  },
+  "vars": {
+    "GITHUB_REPO": "2940325143-eng/ai-subscription-prices",
+    "GITHUB_BRANCH": "main",
+    "WORKFLOW_FILE": "daily-apple-patrol.yml"
+  }
+}

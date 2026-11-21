@@ -435,7 +435,7 @@ def build_published_snapshot(
     return {
         "schemaVersion": 2,
         "updatedAt": now_at,
-        "patrolSchedule": "每天北京时间 04:00 自动直连巡检 Apple（零住宅代理流量）",
+        "patrolSchedule": "每天北京时间 05:05 自动直连巡检 Apple（零住宅代理流量）",
         "fx": fx_clean,
         "products": {
             "chatgpt": chatgpt_prod,

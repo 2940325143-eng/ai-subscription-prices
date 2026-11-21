@@ -27,7 +27,7 @@ export const PRODUCT_CONFIG = Object.freeze({
     key: 'google_ultra',
     title: 'Google AI Ultra',
     description: 'Google AI Ultra 5×（20 TB）与 20×（30 TB）全球月价。官网通过住宅代理同会话核验当地 IP、本币与数字；App Store 扫描 Google 全部 16 款含内购软件并按涨价后新开用户取最高有效月价。',
-    note: '官网仅采用 Google 官方地区正常月付标价（确系仅收美元地区按美元折算）。App Store 每日 04:00 直连巡检，同币种低于官网 65%（如仅老用户旧续订价进 Top 10）将标黄并移出最低价看板。',
+    note: '官网仅采用 Google 官方地区正常月付标价（确系仅收美元地区按美元折算）。App Store 每日 05:05 直连巡检，同币种低于官网 65%（如仅老用户旧续订价进 Top 10）将标黄并移出最低价看板。',
     plans: Object.freeze([
       { key: 'ultra5x', label: 'Ultra 5× (20 TB)', badge: '5×', badgeClass: '', channels: ['web', 'apple'], group: 'personal' },
       { key: 'ultra20x', label: 'Ultra 20× (30 TB)', badge: '20×', badgeClass: 'tier-purple', channels: ['web', 'apple'], group: 'personal' },
@@ -740,7 +740,7 @@ function openDetailDialog(countryCode, channel, planKey) {
 
   let historyHtml = '';
   if (Array.isArray(cell.historyTimeline) && cell.historyTimeline.length) {
-    historyHtml = `<div class="evidence-section"><h3>App Store 历史价格轨迹（每日 04:00 巡检记录）</h3><ul class="candidate-list">${cell.historyTimeline.map((h) => `<li><strong>${escapeHTML(formatMoney(h.amount, h.currency))}</strong> · ${escapeHTML(h.appName || '')} · 首次 ${escapeHTML(formatDateOnly(h.firstSeenAt))} / 最近 ${escapeHTML(formatDateOnly(h.lastSeenAt))}（出现 ${escapeHTML(h.seenCount)} 次）</li>`).join('')}</ul></div>`;
+    historyHtml = `<div class="evidence-section"><h3>App Store 历史价格轨迹（每日 05:05 巡检记录）</h3><ul class="candidate-list">${cell.historyTimeline.map((h) => `<li><strong>${escapeHTML(formatMoney(h.amount, h.currency))}</strong> · ${escapeHTML(h.appName || '')} · 首次 ${escapeHTML(formatDateOnly(h.firstSeenAt))} / 最近 ${escapeHTML(formatDateOnly(h.lastSeenAt))}（出现 ${escapeHTML(h.seenCount)} 次）</li>`).join('')}</ul></div>`;
   }
 
   let candidatesHtml = '';
@@ -937,7 +937,7 @@ function renderAdminBody() {
     </div>
 
     <div class="admin-section">
-      <h3>3. 最近云端任务（含每日 04:00 Apple 巡检）</h3>
+      <h3>3. 最近云端任务（含每日 05:05 Apple 巡检）</h3>
       ${runs.length ? `<ul class="candidate-list">${runs.map((r) => `<li><strong>${escapeHTML(r.name)}</strong> · ${escapeHTML(r.status)} ${r.conclusion ? `(${escapeHTML(r.conclusion)})` : ''} · ${escapeHTML(formatTime(r.updatedAt))} <a href="${escapeHTML(r.htmlUrl)}" target="_blank" rel="noreferrer">日志 ↗</a></li>`).join('')}</ul>` : '<p class="subtle">暂无最近运行记录。</p>'}
     </div>
 

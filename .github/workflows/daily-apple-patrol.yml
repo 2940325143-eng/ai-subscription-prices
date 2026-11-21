@@ -1,9 +1,7 @@
-name: Daily Apple Patrol (04:00 CST)
+name: Daily Apple Patrol (05:05 CST)
 
 on:
-  schedule:
-    # 20:00 UTC == 04:00 Asia/Shanghai (CST)
-    - cron: '0 20 * * *'
+  # Triggered daily at 05:05 Asia/Shanghai (21:05 UTC) by Cloudflare Worker Cron Trigger (`ai-prices-patrol-cron`)
   workflow_dispatch:
 
 permissions:
